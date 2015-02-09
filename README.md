@@ -1,5 +1,5 @@
 # Block Walker
-Python curses-based game
+Python curses-based game.
 
 ## Manipulations
 Use VIM keys for walking:
@@ -8,7 +8,7 @@ Use VIM keys for walking:
 - k - up
 - l - right
 
-Hold shift to turn, press space to make new block
+Hold shift to turn, press space to make new block, press `q` to exit.
 
 ## Target
-You have to get to `0`
+You have to get to `0`.
