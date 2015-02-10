@@ -3,43 +3,9 @@
 
 # https://github.com/TrevorBasinger/Python-Curses-Demo
 # Curses docs: https://docs.python.org/2/library/curses.html
-import curses, traceback, operator, copy
-
-# http://stackoverflow.com/a/497931/1305036
-class stuple(tuple):
-  def __add__(self, other):
-    return self.__class__(map(operator.add, self, other))
-
-KEY_MOVE_UP     = 'k'
-KEY_MOVE_DOWN   = 'j'
-KEY_MOVE_LEFT   = 'h'
-KEY_MOVE_RIGHT  = 'l'
-
-KEYS  = [KEY_MOVE_UP, KEY_MOVE_DOWN,  KEY_MOVE_LEFT,  KEY_MOVE_RIGHT]
-MOVES = [(0,-1),      (0,1),          (-1,0),         (1,0)         ]
-SHIP  = ['^',         'v',            '<',            '>'           ]
-MAP   = [
-    '####################',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#           0      #',
-    '#                  #',
-    '#        @         #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '#                  #',
-    '####################'
-    ]
+import curses, traceback, copy
+import * from init
+import * from ship
 
 def main(stdscr):
   global screen
@@ -108,54 +74,10 @@ def game_over():
   else:
     return False
 
-def find_ship(field):
-  ship_column  = -1
-  ship_row     = -1
-  for row in field:
-    ship_row += 1
-    try:
-      ship_column = row.index('@')
-      field[ship_row] = field[ship_row].replace('@', '*')
-      break
-    except:
-      continue
-  return (ship_row, ship_column)
-
 def redraw_map():
   screen.clear()
-  #screen.box()
-  #screen.resize(20,20)
-  #for i in range(len(MAP)-1):
-  #  for j in range(len(MAP[i])):
-  #    screen.addstr(i, j, '*')
   screen.addstr(0, 0, "\n".join(field))
   return
-
-def move_ship(key):
-  key_index = KEYS.index(key.lower())
-  global ship
-  ship = SHIP[key_index]
-  global ship_x, ship_y
-  if key.islower():
-    new_x, new_y = stuple([ship_x, ship_y]) + stuple(MOVES[key_index])
-    if field[new_y][new_x] in ['*', '0']:
-      ship_x, ship_y = new_x, new_y
-  return
-
-def draw_ship():
-  global ship
-  global ship_x, ship_y
-  screen.addstr(ship_y, ship_x, ship) 
-  screen.refresh() # Refresh to populate screen with data
-  return
-
-def make_block():
-  global ship
-  global ship_x, ship_y
-  global field
-  block_x, block_y = stuple([ship_x, ship_y]) + stuple(MOVES[SHIP.index(ship)])
-  if MAP[block_y][block_x] not in ['#', '0']:
-    field[block_y] = field[block_y][:block_x] + '*' + field[block_y][block_x+1:]
 
 if __name__ == '__main__':
   try:
