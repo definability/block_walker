@@ -4,14 +4,14 @@
 # https://github.com/TrevorBasinger/Python-Curses-Demo
 # Curses docs: https://docs.python.org/2/library/curses.html
 import curses, traceback, copy
-import * from init
-import * from ship
+from init import *
+from ship import *
 
 def main(stdscr):
   global screen
-  global ship
+  #global ship
   ship = '@'
-  global field, columns, rows
+  global columns, rows
   #columns = rows = 20
   #field = [' ' * columns] * rows
   field = copy.deepcopy(MAP)
@@ -20,15 +20,15 @@ def main(stdscr):
   #screen.resize(columns,rows)
   # Get window diminsions
   y, x = screen.getmaxyx()
-  global ship_x, ship_y;
   # Sets the cursor to center the ship on screen
   #ship_x = (x/2)
   #ship_y = (y/2)
+  global ship_x, ship_y
   ship_x, ship_y = find_ship(field)
   if ship_x < 0 or ship_y < 0:
     raise Exception('Error!')
   # Add string to screen
-  redraw_map()
+  redraw_map(field)
   screen.addstr(ship_y, ship_x, ship) 
   screen.refresh() # Refresh to populate screen with data
 
@@ -38,13 +38,13 @@ def main(stdscr):
   c = screen.getkey() # Get char
   while c != 'q': # Exit loop if char caught is 'q'
     if c.lower() in KEYS:
-      redraw_map()
-      move_ship(c)
-      draw_ship()
+      redraw_map(field)
+      ship_x, ship_y = move_ship(c, field, ship_x, ship_y)
+      draw_ship(screen, ship_x, ship_y)
     if c == ' ':
-      make_block()
-      redraw_map()
-      draw_ship()
+      make_block(field, ship_x, ship_y)
+      redraw_map(field)
+      draw_ship(screen, ship_x, ship_y)
     if game_over():
       break
     c = screen.getkey()
@@ -74,7 +74,7 @@ def game_over():
   else:
     return False
 
-def redraw_map():
+def redraw_map(field):
   screen.clear()
   screen.addstr(0, 0, "\n".join(field))
   return
