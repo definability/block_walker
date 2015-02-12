@@ -24,3 +24,8 @@ class IllegalPointCoordinatesNumber(IllegalPointArguments):
           "You have %d integer coordinate(s), but you should have %d"%
           (len(arguments) if arguments_number == -1 else arguments_number,
            CORRECT_COORDINATES_NUMBER))
+
+class CoordinatesKeyError(IllegalPointArguments):
+  def __init__(self, arguments):
+    super(CoordinatesKeyError, self).__init__(arguments,
+        "You should use dictionary with items `x' and `y'")
