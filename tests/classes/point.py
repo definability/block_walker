@@ -28,6 +28,18 @@ class TestPointClass(TestCase):
     self.assertEqual(str(Point(1,1)), 'Point(1,1)')
     self.assertEqual(str(Point(123,7654)), 'Point(123,7654)')
 
+  def test_tuple(self):
+    self.assertEqual(tuple(Point(0,0)), (0,0))
+    self.assertEqual(tuple(Point(0,1)), (0,1))
+    self.assertEqual(tuple(Point(1,0)), (1,0))
+    self.assertEqual(tuple(Point(1,1)), (1,1))
+
+  def test_list(self):
+    self.assertEqual(list(Point(0,0)), [0,0])
+    self.assertEqual(list(Point(0,1)), [0,1])
+    self.assertEqual(list(Point(1,0)), [1,0])
+    self.assertEqual(list(Point(1,1)), [1,1])
+
   def test_eq(self):
     self.assertEqual(Point(0,0), Point(0,0))
     point = Point(1,0)

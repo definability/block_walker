@@ -51,3 +51,7 @@ class Point:
 
   def __str__(self):
     return "Point(%d,%d)"%(self.x, self.y)
+
+  def __iter__(self):
+    yield self.x
+    yield self.y
