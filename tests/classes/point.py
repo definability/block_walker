@@ -8,6 +8,9 @@ class TestPointClass(TestCase):
   def setUp(self):
     pass
 
+  def tearDown(self):
+    pass
+
   def test_regular_initialization(self):
     point = Point(0,0)
     self.assertEqual(point.x, 0)
