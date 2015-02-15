@@ -15,5 +15,8 @@ class TestPointClass(TestCase):
     class InvalidGameObject(GameObject):
       def check_state(self, state):
         return False
+    self.assertRaises(InvalidGameObjectState, InvalidGameObject,
+                                              None, None, None)
 
-    self.assertRaises(InvalidGameObjectState, InvalidGameObject, None, None, None)
+if __name__ == '__main__':
+  main()

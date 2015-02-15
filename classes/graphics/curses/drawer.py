@@ -9,6 +9,3 @@ class CursesDrawer(AbstractDrawer):
 
   def render(self):
     pass
-
-  def f(x):
-    return x+1
