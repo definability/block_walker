@@ -5,17 +5,14 @@ class Point(object):
   def __init__(self, x, y=None):
     # Init
     if type(x) in [list, tuple] and len(x) == 2:
-      try:
-        self.x, self.y = x
-      except ValueError:
-        raise IllegalPointCoordinatesNumber(x)
+      self.x, self.y = x
     elif type(x) is dict and len(x) == 2:
       try:
         self.x, self.y = x['x'], x['y']
       except KeyError:
         raise CoordinatesKeyError(x)
     elif type(x) is type(self):
-      self.x = x.x, x.y
+      self.x, self.y = x.x, x.y
     else:
       self.x, self.y = x, y
     # Errors processing

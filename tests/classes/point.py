@@ -15,6 +15,7 @@ class TestPointClass(TestCase):
     point = Point(0,0)
     self.assertEqual(point.x, 0)
     self.assertEqual(point.y, 0)
+    self.assertIsInstance(point, Point)
 
   def test_regular_initialization_place(self):
     point = Point(0,1)
@@ -62,6 +63,11 @@ class TestPointClass(TestCase):
     point1, point2 = Point(0,0), Point(0,0)
     self.assertFalse(point1 != point2)
     self.assertFalse(point1 != point1)
+
+  def test_copy_initialization(self):
+    point1 = Point(0,0)
+    point2 = Point(point1)
+    self.assertEqual((point1.x, point1.y), (point2.x, point2.y))
 
   def test_list_initialization(self):
     self.assertEqual(Point([1,1]), Point(1,1))
