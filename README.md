@@ -1,6 +1,8 @@
 # Block Walker
 Python curses-based game.
 
+Very incomplete and archived.
+
 ## Manipulations
 Use VIM keys for walking:
 - h - left
